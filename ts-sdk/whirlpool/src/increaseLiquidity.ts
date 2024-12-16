@@ -576,8 +576,8 @@ export async function openPositionInstructions(
   >,
   poolAddress: Address,
   param: IncreaseLiquidityQuoteParam,
-  lowerPrice: number,
-  upperPrice: number,
+  lowerTickIndex: number,
+  upperTickIndex: number,
   slippageToleranceBps: number = SLIPPAGE_TOLERANCE_BPS,
   funder: TransactionSigner = FUNDER,
 ): Promise<OpenPositionInstructions> {
@@ -590,10 +590,6 @@ export async function openPositionInstructions(
     whirlpool.data.tokenMintA,
     whirlpool.data.tokenMintB,
   ]);
-  const decimalsA = mintA.data.decimals;
-  const decimalsB = mintB.data.decimals;
-  const lowerTickIndex = priceToTickIndex(lowerPrice, decimalsA, decimalsB);
-  const upperTickIndex = priceToTickIndex(upperPrice, decimalsA, decimalsB);
   return internalOpenPositionInstructions(
     rpc,
     whirlpool,
